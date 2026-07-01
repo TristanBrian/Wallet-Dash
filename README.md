@@ -279,7 +279,7 @@ Use the dashboard to verify live fetches at runtime:
 4. Use the refresh icon in that badge and verify the timestamp updates
 5. Confirm the `Market Snapshot` section refreshes common coin prices like BTC, ETH, SOL, BNB, ADA, DOGE, XRP, and USDT
 
-For local development, live requests are routed through `proxy.conf.json` (`/api/coingecko`, `/api/fng`) to avoid browser CORS failures. If you edit proxy settings, restart `ng serve`.
+For local development, live requests are routed through `proxy.conf.json` (`/api/coingecko`, `/api/fng`) to avoid browser CORS failures. Netlify production uses direct provider URLs (no Angular dev proxy in static hosting). If you edit proxy settings, restart `ng serve`.
 
 If the timestamp does not update or values stay static, check browser network requests to CoinGecko endpoints and API rate-limit responses.
 
