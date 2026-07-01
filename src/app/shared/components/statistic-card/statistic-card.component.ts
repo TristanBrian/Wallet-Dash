@@ -1,4 +1,5 @@
 import { Component, input } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { PercentChangePipe } from '../../pipes/percent-change.pipe';
@@ -11,7 +12,7 @@ import { CurrencyFormatPipe } from '../../pipes/currency-format.pipe';
 @Component({
   selector: 'app-statistic-card',
   standalone: true,
-  imports: [MatIconModule, MatCardModule, PercentChangePipe, CurrencyFormatPipe],
+  imports: [CommonModule, MatIconModule, MatCardModule, PercentChangePipe, CurrencyFormatPipe],
   templateUrl: './statistic-card.component.html',
   styleUrl: './statistic-card.component.scss',
 })
@@ -21,6 +22,7 @@ export class StatisticCardComponent {
   readonly icon = input<string>('insights');
   readonly change = input<number | null>(null);
   readonly isCurrency = input(false);
+  readonly isPercent = input(false);
   readonly subtitle = input<string | null>(null);
 
   numericValue(): number | null {

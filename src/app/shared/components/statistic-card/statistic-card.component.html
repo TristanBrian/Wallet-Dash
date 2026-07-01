@@ -6,6 +6,10 @@
   <div class="stat-card__value">
     @if (isCurrency() && numericValue() !== null) {
       {{ numericValue()! | currencyFormat }}
+    } @else if (isPercent() && numericValue() !== null) {
+      {{ numericValue()! | percentChange }}
+    } @else if (numericValue() !== null) {
+      {{ numericValue()! | number:'1.0-2' }}
     } @else {
       {{ value() }}
     }
