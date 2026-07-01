@@ -1,0 +1,29 @@
+{
+  "id": "u1",
+  "name": "Alex Morgan",
+  "email": "alex.morgan@wallet.io",
+  "avatar": "AM",
+  "currency": "USD",
+  "notifications": {
+    "priceAlerts": true,
+    "transactionUpdates": true,
+    "marketNews": false,
+    "securityAlerts": true
+  },
+  "apiKeys": [
+    {
+      "id": "k1",
+      "label": "Trading Bot",
+      "keyPreview": "wd_****7f3a",
+      "createdAt": "2025-03-15",
+      "permissions": ["read", "trade"]
+    },
+    {
+      "id": "k2",
+      "label": "Portfolio Sync",
+      "keyPreview": "wd_****9b2c",
+      "createdAt": "2025-05-20",
+      "permissions": ["read"]
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+<app-page-header title="Settings" subtitle="Manage your preferences" />
+
+<div class="settings-grid">
+  <mat-card>
+    <h3>Theme</h3>
+    <p>Current: {{ isDark() ? 'Dark' : 'Light' }} mode</p>
+    <button mat-flat-button color="primary" (click)="toggleTheme()">
+      <mat-icon>{{ isDark() ? 'light_mode' : 'dark_mode' }}</mat-icon>
+      Switch to {{ isDark() ? 'Light' : 'Dark' }} Mode
+    </button>
+  </mat-card>
+
+  <mat-card>
+    <h3>Profile</h3>
+    <form [formGroup]="profileForm" class="settings-form">
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Currency</mat-label>
+        <mat-select formControlName="currency">
+          <mat-option value="USD">USD</mat-option>
+          <mat-option value="EUR">EUR</mat-option>
+          <mat-option value="GBP">GBP</mat-option>
+          <mat-option value="BTC">BTC</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-flat-button color="primary" type="button" (click)="saveProfile()">Save Profile</button>
+    </form>
+  </mat-card>
+
+  <mat-card>
+    <h3>Notification Preferences</h3>
+    <form [formGroup]="notificationForm" class="settings-form toggles">
+      <mat-slide-toggle formControlName="priceAlerts">Price Alerts</mat-slide-toggle>
+      <mat-slide-toggle formControlName="transactionUpdates">Transaction Updates</mat-slide-toggle>
+      <mat-slide-toggle formControlName="marketNews">Market News</mat-slide-toggle>
+      <mat-slide-toggle formControlName="securityAlerts">Security Alerts</mat-slide-toggle>
+      <button mat-flat-button color="primary" type="button" (click)="saveNotifications()">Save Preferences</button>
+    </form>
+  </mat-card>
+
+  <mat-card>
+    <h3>API Keys (Mock)</h3>
+    @if (user()?.apiKeys; as keys) {
+      @for (key of keys; track key.id) {
+        <div class="api-key">
+          <div>
+            <strong>{{ key.label }}</strong>
+            <span>{{ key.keyPreview }}</span>
+            <small>Created {{ key.createdAt }} · {{ key.permissions.join(', ') }}</small>
+          </div>
+          <button mat-icon-button color="warn"><mat-icon>delete</mat-icon></button>
+        </div>
+      }
+    }
+    <button mat-stroked-button class="add-key"><mat-icon>add</mat-icon> Generate New Key</button>
+  </mat-card>
+</div>

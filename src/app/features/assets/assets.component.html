@@ -1,0 +1,53 @@
+<app-page-header title="Assets" subtitle="Your cryptocurrency holdings" />
+
+@if (!assets()) {
+  <app-loading-spinner />
+} @else {
+  <div class="assets-grid">
+    @for (asset of assets()!; track asset.id) {
+      <mat-card class="asset-card">
+        <div class="asset-card__header">
+          <span class="asset-card__icon">{{ asset.icon }}</span>
+          <div>
+            <strong>{{ asset.symbol }}</strong>
+            <span>{{ asset.name }}</span>
+          </div>
+          <app-sparkline-chart [data]="asset.sparkline" [positive]="asset.change24h >= 0" />
+        </div>
+        <div class="asset-card__stats">
+          <div>
+            <label>Price</label>
+            <span>{{ asset.currentPrice | currencyFormat }}</span>
+          </div>
+          <div>
+            <label>Quantity</label>
+            <span>{{ asset.quantity }}</span>
+          </div>
+          <div>
+            <label>Avg Buy</label>
+            <span>{{ asset.averageBuyPrice | currencyFormat }}</span>
+          </div>
+          <div>
+            <label>P/L</label>
+            <span [class.positive]="asset.profitLoss >= 0" [class.negative]="asset.profitLoss < 0">
+              {{ asset.profitLoss | currencyFormat }} ({{ asset.profitLossPercent | percentChange }})
+            </span>
+          </div>
+          <div>
+            <label>Allocation</label>
+            <span>{{ asset.allocationPercent }}%</span>
+          </div>
+          <div>
+            <label>24h</label>
+            <span [class.positive]="asset.change24h >= 0" [class.negative]="asset.change24h < 0">
+              {{ asset.change24h | percentChange }}
+            </span>
+          </div>
+        </div>
+        <div class="asset-card__bar">
+          <div class="asset-card__bar-fill" [style.width.%]="asset.allocationPercent"></div>
+        </div>
+      </mat-card>
+    }
+  </div>
+}

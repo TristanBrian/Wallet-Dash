@@ -1,0 +1,45 @@
+<app-page-header title="Wallets" subtitle="Manage your crypto wallets" />
+
+@if (!wallets()) {
+  <app-loading-spinner />
+} @else {
+  <div class="table-container">
+    <table mat-table [dataSource]="wallets()!">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Wallet Name</th>
+        <td mat-cell *matCellDef="let row"><strong>{{ row.name }}</strong></td>
+      </ng-container>
+      <ng-container matColumnDef="network">
+        <th mat-header-cell *matHeaderCellDef>Network</th>
+        <td mat-cell *matCellDef="let row">{{ row.network }}</td>
+      </ng-container>
+      <ng-container matColumnDef="address">
+        <th mat-header-cell *matHeaderCellDef>Address</th>
+        <td mat-cell *matCellDef="let row" class="mono">{{ row.address | slice:0:12 }}...{{ row.address | slice:-6 }}</td>
+      </ng-container>
+      <ng-container matColumnDef="balance">
+        <th mat-header-cell *matHeaderCellDef>Balance</th>
+        <td mat-cell *matCellDef="let row">{{ row.balance }} {{ row.assetSymbol }}</td>
+      </ng-container>
+      <ng-container matColumnDef="usdValue">
+        <th mat-header-cell *matHeaderCellDef>USD Value</th>
+        <td mat-cell *matCellDef="let row">{{ row.usdValue | currencyFormat }}</td>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let row"><app-status-indicator [status]="row.status" /></td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-icon-button matTooltip="View" (click)="viewWallet(row)"><mat-icon>visibility</mat-icon></button>
+          <button mat-icon-button matTooltip="Edit" (click)="editWallet(row)"><mat-icon>edit</mat-icon></button>
+          <button mat-icon-button matTooltip="Copy Address" (click)="copyAddress(row.address)"><mat-icon>content_copy</mat-icon></button>
+          <button mat-icon-button matTooltip="Delete" color="warn" (click)="deleteWallet(row)"><mat-icon>delete</mat-icon></button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="columns"></tr>
+      <tr mat-row *matRowDef="let row; columns: columns" class="table-row"></tr>
+    </table>
+  </div>
+}

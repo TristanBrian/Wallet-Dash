@@ -1,0 +1,65 @@
+{
+  "summary": {
+    "totalValue": 128456.78,
+    "change24h": 3245.12,
+    "change24hPercent": 2.59,
+    "todayProfitLoss": 1842.55,
+    "totalAssets": 7,
+    "totalWallets": 5
+  },
+  "allocation": [
+    { "symbol": "BTC", "name": "Bitcoin", "value": 51200, "percent": 39.9, "color": "#F7931A" },
+    { "symbol": "ETH", "name": "Ethereum", "value": 38400, "percent": 29.9, "color": "#627EEA" },
+    { "symbol": "SOL", "name": "Solana", "value": 15360, "percent": 12.0, "color": "#9945FF" },
+    { "symbol": "BNB", "name": "BNB", "value": 10240, "percent": 8.0, "color": "#F3BA2F" },
+    { "symbol": "ADA", "name": "Cardano", "value": 5120, "percent": 4.0, "color": "#0033AD" },
+    { "symbol": "DOGE", "name": "Dogecoin", "value": 4096, "percent": 3.2, "color": "#C2A633" },
+    { "symbol": "USDT", "name": "Tether", "value": 4040.78, "percent": 3.0, "color": "#26A17B" }
+  ],
+  "performance": [
+    { "date": "Jan", "value": 98000 },
+    { "date": "Feb", "value": 102500 },
+    { "date": "Mar", "value": 99500 },
+    { "date": "Apr", "value": 108200 },
+    { "date": "May", "value": 112800 },
+    { "date": "Jun", "value": 118400 },
+    { "date": "Jul", "value": 121200 },
+    { "date": "Aug", "value": 119800 },
+    { "date": "Sep", "value": 122500 },
+    { "date": "Oct", "value": 125100 },
+    { "date": "Nov", "value": 126800 },
+    { "date": "Dec", "value": 128456 }
+  ],
+  "monthlyProfit": [
+    { "date": "Jan", "value": 1200 },
+    { "date": "Feb", "value": 2100 },
+    { "date": "Mar", "value": -800 },
+    { "date": "Apr", "value": 3400 },
+    { "date": "May", "value": 2800 },
+    { "date": "Jun", "value": 4100 },
+    { "date": "Jul", "value": 1900 },
+    { "date": "Aug", "value": -1200 },
+    { "date": "Sep", "value": 2600 },
+    { "date": "Oct", "value": 3200 },
+    { "date": "Nov", "value": 1500 },
+    { "date": "Dec", "value": 1842 }
+  ],
+  "topMovers": [
+    { "symbol": "SOL", "name": "Solana", "price": 142.5, "changePercent": 8.42 },
+    { "symbol": "DOGE", "name": "Dogecoin", "price": 0.18, "changePercent": 6.15 },
+    { "symbol": "BNB", "name": "BNB", "price": 612.3, "changePercent": 4.88 }
+  ],
+  "quickActions": [
+    { "id": "1", "label": "Deposit", "icon": "add_circle", "route": "/wallets" },
+    { "id": "2", "label": "Withdraw", "icon": "remove_circle", "route": "/wallets" },
+    { "id": "3", "label": "Swap", "icon": "swap_horiz", "route": "/transactions" },
+    { "id": "4", "label": "Buy Crypto", "icon": "shopping_cart", "route": "/markets" }
+  ],
+  "walletDistribution": [
+    { "symbol": "Main BTC", "name": "Main BTC", "value": 45000, "percent": 35, "color": "#F7931A" },
+    { "symbol": "ETH Staking", "name": "ETH Staking", "value": 32000, "percent": 25, "color": "#627EEA" },
+    { "symbol": "Trading", "name": "Trading", "value": 28000, "percent": 22, "color": "#00D4AA" },
+    { "symbol": "Cold Storage", "name": "Cold Storage", "value": 15000, "percent": 12, "color": "#4A90D9" },
+    { "symbol": "DeFi", "name": "DeFi", "value": 8456, "percent": 6, "color": "#9945FF" }
+  ]
+}

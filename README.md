@@ -1,59 +1,70 @@
-# CustomerDash
+# Wallet Dashboard
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.17.
+A production-quality Angular learning project — a cryptocurrency portfolio dashboard inspired by Binance, Coinbase, and Kraken.
 
-## Development server
+## Tech Stack
 
-To start a local development server, run:
+- Angular 21 (standalone components)
+- Angular Material + SCSS
+- Angular Signals & RxJS
+- HttpClient with mock JSON (API-ready services)
+- Chart.js via ng2-charts
+- Lazy-loaded feature routes
 
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Getting Started
 
 ```bash
-ng generate component component-name
+npm install
+npm start
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Open [http://localhost:4200](http://localhost:4200)
+
+## Build
 
 ```bash
-ng generate --help
+npm run build
 ```
 
-## Building
+## Project Structure
 
-To build the project run:
-
-```bash
-ng build
+```
+src/app/
+├── core/           # Services, models, constants
+├── shared/         # Reusable components, pipes, utils
+├── features/       # Lazy-loaded feature pages
+├── layout/         # Sidebar, toolbar, main shell
+└── environments/   # API configuration
+public/assets/mock/ # Mock JSON data
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Features
 
-## Running unit tests
+| Route | Description |
+|-------|-------------|
+| `/dashboard` | Portfolio overview, charts, recent transactions |
+| `/wallets` | Wallet table with CRUD actions |
+| `/assets` | Holdings with sparklines and P/L |
+| `/transactions` | Paginated, filterable transaction history |
+| `/markets` | Market overview, gainers/losers, fear & greed |
+| `/settings` | Theme, profile, notifications, API keys |
+| `/help` | Angular architecture learning notes |
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## Angular Concepts Demonstrated
 
-```bash
-ng test
-```
+- **Standalone Components** — no NgModules
+- **Signals** — `ThemeService`, `NotificationService` UI state
+- **Dependency Injection** — `inject()` in services and components
+- **Lazy Routing** — each feature loads on demand
+- **Reactive Forms** — transactions filters, settings
+- **HttpClient** — services abstract mock vs real API
+- **RxJS** — `switchMap`, `combineLatest`, `shareReplay`
+- **Pipes** — currency and percent formatting
 
-## Running end-to-end tests
+## Switching to Real APIs
 
-For end-to-end (e2e) testing, run:
+Update `environment.ts` / `environment.prod.ts` `apiBaseUrl` and adapt service methods to match API response shapes. Services are designed as the single integration point.
 
-```bash
-ng e2e
-```
+## License
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+MIT

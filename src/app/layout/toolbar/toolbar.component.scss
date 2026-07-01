@@ -1,0 +1,60 @@
+.toolbar {
+  background: var(--surface-toolbar) !important;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
+  gap: 0.5rem;
+  padding: 0 1rem;
+  min-height: 64px;
+
+  &__menu {
+    display: none;
+    @media (max-width: 960px) { display: inline-flex; }
+  }
+
+  &__search {
+    flex: 0 1 320px;
+    @media (max-width: 600px) { display: none; }
+  }
+
+  &__spacer { flex: 1; }
+
+  &__profile {
+    color: var(--text-primary);
+    .toolbar__name {
+      @media (max-width: 600px) { display: none; }
+    }
+  }
+
+  &__avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--accent-primary);
+    color: #1e2329;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-right: 0.5rem;
+  }
+}
+
+:host ::ng-deep .notif-menu {
+  max-width: 360px;
+
+  .notif-menu__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .unread { background: rgba(240, 185, 11, 0.08); }
+
+  mat-menu-item, .mat-mdc-menu-item {
+  span small { display: block; color: var(--text-muted); font-size: 0.75rem; }
+  }
+}

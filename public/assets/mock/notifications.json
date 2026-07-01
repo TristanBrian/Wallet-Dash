@@ -1,0 +1,34 @@
+[
+  {
+    "id": "n1",
+    "title": "BTC Price Alert",
+    "message": "Bitcoin crossed $62,000",
+    "type": "info",
+    "read": false,
+    "timestamp": "2025-06-28T10:00:00Z"
+  },
+  {
+    "id": "n2",
+    "title": "Transaction Confirmed",
+    "message": "Your SOL transfer has been confirmed",
+    "type": "success",
+    "read": false,
+    "timestamp": "2025-06-27T18:45:00Z"
+  },
+  {
+    "id": "n3",
+    "title": "Security Alert",
+    "message": "New login detected from unknown device",
+    "type": "warning",
+    "read": true,
+    "timestamp": "2025-06-26T08:30:00Z"
+  },
+  {
+    "id": "n4",
+    "title": "Transaction Failed",
+    "message": "ADA purchase failed — insufficient funds",
+    "type": "error",
+    "read": true,
+    "timestamp": "2025-06-23T08:55:00Z"
+  }
+]

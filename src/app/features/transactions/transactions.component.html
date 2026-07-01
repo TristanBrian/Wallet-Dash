@@ -1,0 +1,90 @@
+<app-page-header title="Transactions" subtitle="Your transaction history" />
+
+<form [formGroup]="filterForm" class="filters">
+  <mat-form-field appearance="outline" subscriptSizing="dynamic">
+    <mat-label>Asset</mat-label>
+    <mat-select formControlName="asset">
+      <mat-option value="">All</mat-option>
+      <mat-option value="BTC">BTC</mat-option>
+      <mat-option value="ETH">ETH</mat-option>
+      <mat-option value="SOL">SOL</mat-option>
+      <mat-option value="BNB">BNB</mat-option>
+      <mat-option value="DOGE">DOGE</mat-option>
+      <mat-option value="ADA">ADA</mat-option>
+      <mat-option value="USDT">USDT</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline" subscriptSizing="dynamic">
+    <mat-label>Type</mat-label>
+    <mat-select formControlName="type">
+      <mat-option value="">All</mat-option>
+      <mat-option value="buy">Buy</mat-option>
+      <mat-option value="sell">Sell</mat-option>
+      <mat-option value="transfer">Transfer</mat-option>
+      <mat-option value="swap">Swap</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline" subscriptSizing="dynamic">
+    <mat-label>Status</mat-label>
+    <mat-select formControlName="status">
+      <mat-option value="">All</mat-option>
+      <mat-option value="completed">Completed</mat-option>
+      <mat-option value="pending">Pending</mat-option>
+      <mat-option value="failed">Failed</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline" subscriptSizing="dynamic">
+    <mat-label>Search</mat-label>
+    <input matInput formControlName="search" placeholder="Hash, asset..." />
+  </mat-form-field>
+</form>
+
+@if (!result()) {
+  <app-loading-spinner />
+} @else {
+  <div class="table-container">
+    <table mat-table [dataSource]="result()!.items">
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef>Date</th>
+        <td mat-cell *matCellDef="let row">{{ formatDate(row.date) }}</td>
+      </ng-container>
+      <ng-container matColumnDef="asset">
+        <th mat-header-cell *matHeaderCellDef>Asset</th>
+        <td mat-cell *matCellDef="let row">{{ row.asset }}</td>
+      </ng-container>
+      <ng-container matColumnDef="network">
+        <th mat-header-cell *matHeaderCellDef>Network</th>
+        <td mat-cell *matCellDef="let row">{{ row.network }}</td>
+      </ng-container>
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef>Type</th>
+        <td mat-cell *matCellDef="let row" class="capitalize">{{ row.type }}</td>
+      </ng-container>
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef>Amount</th>
+        <td mat-cell *matCellDef="let row">{{ row.amount }}</td>
+      </ng-container>
+      <ng-container matColumnDef="fee">
+        <th mat-header-cell *matHeaderCellDef>Fee</th>
+        <td mat-cell *matCellDef="let row">{{ row.fee }}</td>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let row"><app-status-indicator [status]="row.status" /></td>
+      </ng-container>
+      <ng-container matColumnDef="hash">
+        <th mat-header-cell *matHeaderCellDef>Hash</th>
+        <td mat-cell *matCellDef="let row" class="mono">{{ truncateHash(row.hash) }}</td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="columns"></tr>
+      <tr mat-row *matRowDef="let row; columns: columns"></tr>
+    </table>
+    <mat-paginator
+      [length]="result()!.total"
+      [pageSize]="pageSize()"
+      [pageIndex]="page()"
+      [pageSizeOptions]="[5, 10, 25]"
+      (page)="onPage($event)"
+    />
+  </div>
+}

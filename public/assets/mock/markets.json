@@ -1,0 +1,38 @@
+{
+  "globalMarketCap": 2450000000000,
+  "volume24h": 98500000000,
+  "btcDominance": 52.4,
+  "ethDominance": 17.8,
+  "fearGreedIndex": 72,
+  "fearGreedLabel": "Greed",
+  "topGainers": [
+    { "symbol": "SOL", "name": "Solana", "price": 142.5, "changePercent": 8.42, "volume": 3200000000, "marketCap": 65000000000 },
+    { "symbol": "DOGE", "name": "Dogecoin", "price": 0.18, "changePercent": 6.15, "volume": 1800000000, "marketCap": 26000000000 },
+    { "symbol": "ADA", "name": "Cardano", "price": 0.64, "changePercent": 5.32, "volume": 890000000, "marketCap": 22500000000 },
+    { "symbol": "BNB", "name": "BNB", "price": 612.3, "changePercent": 4.88, "volume": 1500000000, "marketCap": 92000000000 },
+    { "symbol": "ETH", "name": "Ethereum", "price": 3072, "changePercent": 3.21, "volume": 18000000000, "marketCap": 370000000000 }
+  ],
+  "topLosers": [
+    { "symbol": "USDT", "name": "Tether", "price": 1.0, "changePercent": -0.01, "volume": 45000000000, "marketCap": 118000000000 },
+    { "symbol": "BTC", "name": "Bitcoin", "price": 62439, "changePercent": -1.2, "volume": 28000000000, "marketCap": 1230000000000 },
+    { "symbol": "XRP", "name": "XRP", "price": 0.52, "changePercent": -2.8, "volume": 2100000000, "marketCap": 29000000000 },
+    { "symbol": "DOT", "name": "Polkadot", "price": 6.8, "changePercent": -3.5, "volume": 450000000, "marketCap": 9500000000 },
+    { "symbol": "AVAX", "name": "Avalanche", "price": 28.5, "changePercent": -4.1, "volume": 680000000, "marketCap": 11500000000 }
+  ],
+  "trending": [
+    { "symbol": "PEPE", "name": "Pepe", "price": 0.000012, "changePercent": 15.2, "volume": 890000000, "marketCap": 5000000000 },
+    { "symbol": "WIF", "name": "dogwifhat", "price": 2.45, "changePercent": 12.8, "volume": 650000000, "marketCap": 2400000000 },
+    { "symbol": "ARB", "name": "Arbitrum", "price": 0.95, "changePercent": 9.5, "volume": 420000000, "marketCap": 3200000000 },
+    { "symbol": "OP", "name": "Optimism", "price": 2.1, "changePercent": 7.3, "volume": 380000000, "marketCap": 2100000000 },
+    { "symbol": "INJ", "name": "Injective", "price": 24.5, "changePercent": 6.8, "volume": 290000000, "marketCap": 2300000000 }
+  ],
+  "marketTrend": [
+    { "date": "Mon", "value": 2380 },
+    { "date": "Tue", "value": 2410 },
+    { "date": "Wed", "value": 2395 },
+    { "date": "Thu", "value": 2430 },
+    { "date": "Fri", "value": 2450 },
+    { "date": "Sat", "value": 2440 },
+    { "date": "Sun", "value": 2450 }
+  ]
+}

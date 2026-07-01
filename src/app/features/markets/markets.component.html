@@ -1,0 +1,68 @@
+<app-page-header title="Markets" subtitle="Global crypto market overview" />
+
+@if (!market()) {
+  <app-loading-spinner />
+} @else {
+  <div class="stats-grid">
+    <app-statistic-card title="Global Market Cap" [value]="'$' + formatCompact(market()!.globalMarketCap)" icon="public" />
+    <app-statistic-card title="24h Volume" [value]="'$' + formatCompact(market()!.volume24h)" icon="bar_chart" />
+    <app-statistic-card title="BTC Dominance" [value]="market()!.btcDominance + '%'" icon="currency_bitcoin" />
+    <app-statistic-card title="ETH Dominance" [value]="market()!.ethDominance + '%'" icon="token" />
+  </div>
+
+  <div class="fear-greed">
+    <mat-card>
+      <h3>Fear & Greed Index</h3>
+      <div class="fear-greed__meter">
+        <div class="fear-greed__value">{{ market()!.fearGreedIndex }}</div>
+        <div class="fear-greed__label">{{ market()!.fearGreedLabel }}</div>
+        <div class="fear-greed__bar">
+          <div class="fear-greed__fill" [style.width.%]="market()!.fearGreedIndex"></div>
+        </div>
+      </div>
+    </mat-card>
+    <app-chart-card title="Market Trends" type="line" [labels]="trendChart(market()!).labels" [datasets]="trendChart(market()!).datasets" />
+  </div>
+
+  <mat-tab-group class="coin-tabs">
+    <mat-tab label="Top Gainers">
+      <div class="coin-list">
+        @for (coin of market()!.topGainers; track coin.symbol) {
+          <div class="coin-row">
+            <div><strong>{{ coin.symbol }}</strong><span>{{ coin.name }}</span></div>
+            <div class="coin-row__right">
+              <span>{{ coin.price | currencyFormat }}</span>
+              <span class="positive">{{ coin.changePercent | percentChange }}</span>
+            </div>
+          </div>
+        }
+      </div>
+    </mat-tab>
+    <mat-tab label="Top Losers">
+      <div class="coin-list">
+        @for (coin of market()!.topLosers; track coin.symbol) {
+          <div class="coin-row">
+            <div><strong>{{ coin.symbol }}</strong><span>{{ coin.name }}</span></div>
+            <div class="coin-row__right">
+              <span>{{ coin.price | currencyFormat }}</span>
+              <span class="negative">{{ coin.changePercent | percentChange }}</span>
+            </div>
+          </div>
+        }
+      </div>
+    </mat-tab>
+    <mat-tab label="Trending">
+      <div class="coin-list">
+        @for (coin of market()!.trending; track coin.symbol) {
+          <div class="coin-row">
+            <div><strong>{{ coin.symbol }}</strong><span>{{ coin.name }}</span></div>
+            <div class="coin-row__right">
+              <span>{{ coin.price | currencyFormat }}</span>
+              <span class="positive">{{ coin.changePercent | percentChange }}</span>
+            </div>
+          </div>
+        }
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+}

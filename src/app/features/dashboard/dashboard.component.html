@@ -1,0 +1,99 @@
+@if (error()) {
+  <app-error-state (retry)="retry()" />
+} @else if (!portfolio()) {
+  <app-loading-spinner />
+} @else {
+  <app-page-header title="Dashboard" subtitle="Your portfolio at a glance">
+    <button mat-stroked-button routerLink="/markets">
+      <mat-icon>add_shopping_cart</mat-icon> Buy Crypto
+    </button>
+  </app-page-header>
+
+  <div class="stats-grid">
+    <app-statistic-card title="Portfolio Value" [value]="portfolio()!.summary.totalValue" icon="account_balance" [isCurrency]="true" />
+    <app-statistic-card title="24h Change" [value]="portfolio()!.summary.change24hPercent" icon="trending_up" [change]="portfolio()!.summary.change24hPercent" />
+    <app-statistic-card title="Today's P/L" [value]="portfolio()!.summary.todayProfitLoss" icon="show_chart" [isCurrency]="true" [change]="portfolio()!.summary.todayProfitLoss > 0 ? 1 : -1" />
+    <app-statistic-card title="Total Assets" [value]="portfolio()!.summary.totalAssets" icon="monetization_on" />
+    <app-statistic-card title="Total Wallets" [value]="portfolio()!.summary.totalWallets" icon="account_balance_wallet" />
+  </div>
+
+  <div class="quick-actions">
+    <h3>Quick Actions</h3>
+    <div class="quick-actions__grid">
+      @for (action of portfolio()!.quickActions; track action.id) {
+        <a mat-stroked-button [routerLink]="action.route" class="quick-action">
+          <mat-icon>{{ action.icon }}</mat-icon>
+          {{ action.label }}
+        </a>
+      }
+    </div>
+  </div>
+
+  <div class="charts-grid">
+    <app-chart-card title="Portfolio Growth" type="line" [labels]="performanceChart().labels" [datasets]="performanceChart().datasets" />
+    <app-chart-card title="Asset Allocation" type="doughnut" [labels]="allocationChart().labels" [datasets]="allocationChart().datasets" height="300px" />
+  </div>
+
+  <div class="bottom-grid">
+    <mat-card class="table-card">
+      <h3>Recent Transactions</h3>
+      <table mat-table [dataSource]="recentTx() ?? []">
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef>Date</th>
+          <td mat-cell *matCellDef="let row">{{ formatDate(row.date) }}</td>
+        </ng-container>
+        <ng-container matColumnDef="asset">
+          <th mat-header-cell *matHeaderCellDef>Asset</th>
+          <td mat-cell *matCellDef="let row">{{ row.asset }}</td>
+        </ng-container>
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef>Type</th>
+          <td mat-cell *matCellDef="let row" class="capitalize">{{ row.type }}</td>
+        </ng-container>
+        <ng-container matColumnDef="amount">
+          <th mat-header-cell *matHeaderCellDef>Amount</th>
+          <td mat-cell *matCellDef="let row">{{ row.amount }}</td>
+        </ng-container>
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Status</th>
+          <td mat-cell *matCellDef="let row"><app-status-indicator [status]="row.status" /></td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="txColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: txColumns"></tr>
+      </table>
+      <a mat-button routerLink="/transactions" class="view-all">View All</a>
+    </mat-card>
+
+    <mat-card class="movers-card">
+      <h3>Top Movers</h3>
+      @for (mover of portfolio()!.topMovers; track mover.symbol) {
+        <div class="mover-row">
+          <div>
+            <strong>{{ mover.symbol }}</strong>
+            <span>{{ mover.name }}</span>
+          </div>
+          <div class="mover-row__price">
+            <span>{{ mover.price | currencyFormat }}</span>
+            <span [class.positive]="mover.changePercent >= 0" [class.negative]="mover.changePercent < 0">
+              {{ mover.changePercent | percentChange }}
+            </span>
+          </div>
+        </div>
+      }
+    </mat-card>
+
+    <mat-card class="market-card">
+      <h3>Market Overview</h3>
+      <p class="market-hint">Visit <a routerLink="/markets">Markets</a> for full data</p>
+      <div class="allocation-list">
+        @for (item of portfolio()!.allocation; track item.symbol) {
+          <div class="allocation-row">
+            <span class="dot" [style.background]="item.color"></span>
+            <span>{{ item.symbol }}</span>
+            <span class="allocation-row__pct">{{ item.percent }}%</span>
+          </div>
+        }
+      </div>
+    </mat-card>
+  </div>
+}

@@ -1,0 +1,17 @@
+<div class="layout" [class.sidebar-collapsed]="!sidebarOpen()">
+  <div class="layout__sidebar" [class.open]="sidebarOpen()">
+    <app-sidebar />
+  </div>
+
+  @if (sidebarOpen()) {
+    <div class="layout__backdrop" (click)="toggleSidebar()"></div>
+  }
+
+  <div class="layout__main">
+    <app-toolbar (menuToggle)="toggleSidebar()" />
+    <main class="layout__content">
+      <router-outlet />
+    </main>
+    <app-footer />
+  </div>
+</div>

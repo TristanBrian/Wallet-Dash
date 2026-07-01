@@ -1,0 +1,47 @@
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.fear-greed {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+
+  @media (max-width: 960px) { grid-template-columns: 1fr; }
+
+  mat-card {
+    padding: 1.25rem;
+    h3 { margin: 0 0 1rem; }
+  }
+
+  &__value { font-size: 3rem; font-weight: 700; color: var(--accent-primary); }
+  &__label { color: var(--text-secondary); margin-bottom: 1rem; }
+  &__bar { height: 8px; background: var(--surface-elevated); border-radius: 4px; overflow: hidden; }
+  &__fill { height: 100%; background: linear-gradient(90deg, #f6465d, #f0b90b, #00d4aa); border-radius: 4px; }
+}
+
+.coin-tabs { margin-top: 1rem; }
+
+.coin-list { padding: 1rem 0; }
+
+.coin-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+
+  span { display: block; font-size: 0.75rem; color: var(--text-muted); }
+
+  &__right {
+    text-align: right;
+    .positive { color: var(--color-positive); }
+    .negative { color: var(--color-negative); }
+  }
+}
+
+.positive { color: var(--color-positive); }
+.negative { color: var(--color-negative); }

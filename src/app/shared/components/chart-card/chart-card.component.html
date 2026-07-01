@@ -1,0 +1,6 @@
+<mat-card class="chart-card">
+  <h3 class="chart-card__title">{{ title() }}</h3>
+  <div class="chart-card__canvas" [style.height]="height()">
+    <canvas baseChart [type]="type()" [data]="chartData()" [options]="chartOptions()"></canvas>
+  </div>
+</mat-card>

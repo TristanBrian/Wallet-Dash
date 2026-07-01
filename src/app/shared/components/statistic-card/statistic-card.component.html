@@ -1,0 +1,21 @@
+<mat-card class="stat-card">
+  <div class="stat-card__header">
+    <mat-icon class="stat-card__icon">{{ icon() }}</mat-icon>
+    <span class="stat-card__title">{{ title() }}</span>
+  </div>
+  <div class="stat-card__value">
+    @if (isCurrency() && numericValue() !== null) {
+      {{ numericValue()! | currencyFormat }}
+    } @else {
+      {{ value() }}
+    }
+  </div>
+  @if (change() !== null) {
+    <div class="stat-card__change" [class.positive]="change()! >= 0" [class.negative]="change()! < 0">
+      {{ change()! | percentChange }}
+    </div>
+  }
+  @if (subtitle()) {
+    <div class="stat-card__subtitle">{{ subtitle() }}</div>
+  }
+</mat-card>

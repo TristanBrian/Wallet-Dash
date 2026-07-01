@@ -1,0 +1,67 @@
+.assets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1rem;
+}
+
+.asset-card {
+  padding: 1.25rem;
+  transition: transform 0.2s;
+
+  &:hover { transform: translateY(-2px); }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+
+    strong { display: block; font-size: 1.125rem; }
+    span { font-size: 0.8125rem; color: var(--text-muted); }
+    app-sparkline-chart { margin-left: auto; }
+  }
+
+  &__icon {
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface-elevated);
+    border-radius: 50%;
+  }
+
+  &__stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+
+    label {
+      display: block;
+      font-size: 0.6875rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+
+    span { font-size: 0.875rem; font-weight: 500; }
+  }
+
+  &__bar {
+    margin-top: 1rem;
+    height: 4px;
+    background: var(--surface-elevated);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  &__bar-fill {
+    height: 100%;
+    background: var(--accent-primary);
+    border-radius: 2px;
+  }
+}
+
+.positive { color: var(--color-positive); }
+.negative { color: var(--color-negative); }

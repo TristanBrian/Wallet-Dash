@@ -1,0 +1,52 @@
+[
+  {
+    "id": "w1",
+    "name": "Main Bitcoin Wallet",
+    "network": "Bitcoin",
+    "address": "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh",
+    "balance": 0.82,
+    "usdValue": 51200,
+    "status": "active",
+    "assetSymbol": "BTC"
+  },
+  {
+    "id": "w2",
+    "name": "ETH Staking",
+    "network": "Ethereum",
+    "address": "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb0",
+    "balance": 12.5,
+    "usdValue": 38400,
+    "status": "active",
+    "assetSymbol": "ETH"
+  },
+  {
+    "id": "w3",
+    "name": "Solana Trading",
+    "network": "Solana",
+    "address": "7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU",
+    "balance": 108,
+    "usdValue": 15360,
+    "status": "active",
+    "assetSymbol": "SOL"
+  },
+  {
+    "id": "w4",
+    "name": "BNB Savings",
+    "network": "BNB Chain",
+    "address": "0x8894E0a0c962CB723c1976a4421c95949bE2D4E3",
+    "balance": 16.7,
+    "usdValue": 10240,
+    "status": "inactive",
+    "assetSymbol": "BNB"
+  },
+  {
+    "id": "w5",
+    "name": "USDT Reserve",
+    "network": "Ethereum",
+    "address": "0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed",
+    "balance": 4040.78,
+    "usdValue": 4040.78,
+    "status": "pending",
+    "assetSymbol": "USDT"
+  }
+]

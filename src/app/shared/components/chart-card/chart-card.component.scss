@@ -1,0 +1,16 @@
+.chart-card {
+  padding: 1.25rem;
+  height: 100%;
+
+  &__title {
+    margin: 0 0 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  &__canvas {
+    position: relative;
+    width: 100%;
+  }
+}

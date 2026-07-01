@@ -1,0 +1,18 @@
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+
+  mat-form-field { flex: 1; min-width: 140px; }
+}
+
+.table-container {
+  overflow-x: auto;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+}
+
+table { width: 100%; min-width: 800px; }
+.mono { font-family: monospace; font-size: 0.8125rem; }
+.capitalize { text-transform: capitalize; }
