@@ -33,3 +33,14 @@ export interface QuickAction {
   icon: string;
   route: string;
 }
+
+export interface PortfolioData {
+  fetchedAt: string;
+  summary: PortfolioSummary;
+  allocation: PortfolioAllocation[];
+  performance: PerformancePoint[];
+  monthlyProfit: PerformancePoint[];
+  topMovers: TopMover[];
+  quickActions: QuickAction[];
+  walletDistribution: PortfolioAllocation[];
+}
