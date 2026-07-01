@@ -1,0 +1,20 @@
+{
+  "/api/coingecko": {
+    "target": "https://api.coingecko.com/api/v3",
+    "secure": true,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api/coingecko": ""
+    },
+    "logLevel": "warn"
+  },
+  "/api/fng": {
+    "target": "https://api.alternative.me/fng",
+    "secure": true,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api/fng": ""
+    },
+    "logLevel": "warn"
+  }
+}

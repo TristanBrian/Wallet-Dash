@@ -76,7 +76,8 @@
               "buildTarget": "customer_dash:build:production"
             },
             "development": {
-              "buildTarget": "customer_dash:build:development"
+              "buildTarget": "customer_dash:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
