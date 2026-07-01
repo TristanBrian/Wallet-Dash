@@ -11,11 +11,48 @@
 
   <div class="stats-grid">
     <app-statistic-card title="Portfolio Value" [value]="portfolio()!.summary.totalValue" icon="account_balance" [isCurrency]="true" />
-    <app-statistic-card title="24h Change" [value]="portfolio()!.summary.change24hPercent" icon="trending_up" [change]="portfolio()!.summary.change24hPercent" />
+    <app-statistic-card title="24h Change" [value]="portfolio()!.summary.change24hPercent" icon="trending_up" [isPercent]="true" [change]="portfolio()!.summary.change24hPercent" />
     <app-statistic-card title="Today's P/L" [value]="portfolio()!.summary.todayProfitLoss" icon="show_chart" [isCurrency]="true" [change]="portfolio()!.summary.todayProfitLoss > 0 ? 1 : -1" />
     <app-statistic-card title="Total Assets" [value]="portfolio()!.summary.totalAssets" icon="monetization_on" />
     <app-statistic-card title="Total Wallets" [value]="portfolio()!.summary.totalWallets" icon="account_balance_wallet" />
   </div>
+
+  <div class="live-indicator">
+    <button type="button" mat-icon-button aria-label="Refresh live data" (click)="refreshLiveData()">
+      <mat-icon>sync</mat-icon>
+    </button>
+    <span>Live API: {{ apiSource }} | Last pull: {{ lastUpdatedLabel() }}</span>
+  </div>
+
+  <mat-card class="market-snapshot-card">
+    <div class="market-snapshot-card__header">
+      <div>
+        <h3>Market Snapshot</h3>
+        <p>Common crypto prices pulled live from CoinGecko</p>
+      </div>
+    </div>
+
+    <div class="sample-price-grid">
+      @for (coin of liveMarketCoins(); track coin.id) {
+        <div class="sample-price-card">
+          <div class="sample-price-card__top">
+            <div>
+              <div class="sample-price-card__label">{{ coin.symbol | uppercase }}</div>
+              <div class="sample-price-card__name">{{ coin.name }}</div>
+            </div>
+            <div
+              class="sample-price-card__change"
+              [class.positive]="(coin.price_change_percentage_24h ?? 0) >= 0"
+              [class.negative]="(coin.price_change_percentage_24h ?? 0) < 0">
+              {{ coin.price_change_percentage_24h ?? 0 | percentChange }}
+            </div>
+          </div>
+
+          <div class="sample-price-card__value">{{ coin.current_price | currencyFormat }}</div>
+        </div>
+      }
+    </div>
+  </mat-card>
 
   <div class="quick-actions">
     <h3>Quick Actions</h3>

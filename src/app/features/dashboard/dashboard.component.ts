@@ -1,4 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { UpperCasePipe } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,7 +17,16 @@ import { StatusIndicatorComponent } from '../../shared/components/status-indicat
 import { CurrencyFormatPipe } from '../../shared/pipes/currency-format.pipe';
 import { PercentChangePipe } from '../../shared/pipes/percent-change.pipe';
 import { formatDate, truncateHash } from '../../shared/utils/format.utils';
-import { catchError, of } from 'rxjs';
+import { Subject, catchError, of, startWith, switchMap } from 'rxjs';
+import { COINGECKO_API } from '../../core/constants/crypto.constants';
+
+interface DashboardMarketCoin {
+  id: string;
+  symbol: string;
+  name: string;
+  current_price: number;
+  price_change_percentage_24h: number | null;
+}
 
 /**
  * Dashboard — portfolio overview demonstrating toSignal(), async data, and chart composition.
@@ -38,29 +49,69 @@ import { catchError, of } from 'rxjs';
     StatusIndicatorComponent,
     CurrencyFormatPipe,
     PercentChangePipe,
+    UpperCasePipe,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent {
+  private readonly http = inject(HttpClient);
   private readonly portfolioService = inject(PortfolioService);
+  private readonly refreshTrigger$ = new Subject<void>();
 
   readonly error = signal(false);
   readonly portfolio = toSignal(
-    this.portfolioService.getPortfolio().pipe(catchError(() => { this.error.set(true); return of(null); })),
+    this.refreshTrigger$.pipe(
+      startWith(void 0),
+      switchMap(() => this.portfolioService.getPortfolio()),
+      catchError(() => {
+        this.error.set(true);
+        return of(null);
+      }),
+    ),
   );
   readonly recentTx = toSignal(
-    this.portfolioService.getRecentTransactions().pipe(catchError(() => of([]))),
+    this.refreshTrigger$.pipe(
+      startWith(void 0),
+      switchMap(() => this.portfolioService.getRecentTransactions()),
+      catchError(() => of([])),
+    ),
+  );
+  readonly livePriceSample = toSignal(
+    this.refreshTrigger$.pipe(
+      startWith(void 0),
+      switchMap(() =>
+        this.http.get<DashboardMarketCoin[]>(
+          `${COINGECKO_API}/coins/markets?vs_currency=usd&ids=bitcoin,ethereum,solana,binancecoin,cardano,dogecoin,ripple,tether`,
+        ),
+      ),
+      catchError(() => of([] as DashboardMarketCoin[])),
+    ),
   );
 
   readonly txColumns = ['date', 'asset', 'type', 'amount', 'status'];
   readonly formatDate = formatDate;
   readonly truncateHash = truncateHash;
+  readonly apiSource = 'CoinGecko';
 
   retry(): void {
+    this.refreshLiveData();
+  }
+
+  refreshLiveData(): void {
     this.error.set(false);
     this.portfolioService.refresh();
-    window.location.reload();
+    this.refreshTrigger$.next();
+  }
+
+  lastUpdatedLabel(): string {
+    const fetchedAt = this.portfolio()?.fetchedAt;
+    if (!fetchedAt) return 'fetching...';
+    return new Date(fetchedAt).toLocaleTimeString();
+  }
+
+  liveMarketCoins(): DashboardMarketCoin[] {
+    return this.livePriceSample() ?? [];
   }
 
   performanceChart() {
