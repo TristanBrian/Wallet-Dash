@@ -1,6 +1,12 @@
+import { environment } from '../../../environments/environment';
+
 /** Public API endpoints for live crypto data. */
-export const COINGECKO_API = '/api/coingecko';
-export const FEAR_GREED_API = '/api/fng';
+export const COINGECKO_API = environment.production
+  ? 'https://api.coingecko.com/api/v3'
+  : '/api/coingecko';
+export const FEAR_GREED_API = environment.production
+  ? 'https://api.alternative.me/fng'
+  : '/api/fng';
 
 export const COIN_COLORS: Record<string, string> = {
   BTC: '#F7931A',
