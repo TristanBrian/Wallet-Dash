@@ -1,6 +1,6 @@
 # Wallet Dashboard
 
-A cryptocurrency portfolio dashboard built with **Angular 21** to teach real-world architecture and best practices. The UI is inspired by exchanges like Binance, Coinbase, and Kraken — dark theme, responsive layout, charts, tables, and a full app shell — but the real goal is learning **how** a production Angular app is structured.
+A cryptocurrency portfolio dashboard built with **Angular 21** to teach real-world architecture and best practices. The UI is inspired by exchanges like Binance, Coinbase, and Kraken dark theme, responsive layout, charts, tables, and a full app shell but the real goal is learning **how** a production Angular app is structured.
 
 > This is a learning project first. Every layer demonstrates a deliberate Angular pattern you can reuse in production apps.
 
