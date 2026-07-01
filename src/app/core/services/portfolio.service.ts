@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, forkJoin, map, shareReplay } from 'rxjs';
+import { Observable, catchError, forkJoin, map, shareReplay } from 'rxjs';
 import { PortfolioData } from '../models/portfolio.model';
 import { Transaction } from '../models/transaction.model';
 import { environment } from '../../../environments/environment';
@@ -24,6 +24,16 @@ export class PortfolioService {
         ),
       }).pipe(
         map(({ markets, history }) => buildPortfolioData(markets, history)),
+        catchError(() =>
+          this.http
+            .get<Omit<PortfolioData, 'fetchedAt'>>(`${environment.apiBaseUrl}${API_PATHS.portfolio}`)
+            .pipe(
+              map((mock) => ({
+                ...mock,
+                fetchedAt: new Date().toISOString(),
+              })),
+            ),
+        ),
         shareReplay(1),
       );
     }
