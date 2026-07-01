@@ -23,6 +23,7 @@
     "@angular/platform-server": "^21.2.0",
     "@angular/router": "^21.2.0",
     "@angular/ssr": "^21.2.17",
+    "@netlify/angular-runtime": "^4.0.0",
     "chart.js": "^4.5.1",
     "express": "^5.1.0",
     "ng2-charts": "^10.0.0",
