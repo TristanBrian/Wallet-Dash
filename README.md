@@ -29,7 +29,7 @@ A cryptocurrency portfolio dashboard built with **Angular 21** to teach real-wor
 
 | Route | What you'll find |
 |-------|------------------|
-| `/dashboard` | Portfolio value, 24h change, P/L, quick actions, growth & allocation charts, recent transactions, top movers |
+| `/dashboard` | Portfolio value, 24h change, P/L, live market snapshot, quick actions, growth & allocation charts, recent transactions, top movers |
 | `/wallets` | Wallet table with view, edit, delete, and copy-address actions |
 | `/assets` | BTC, ETH, SOL, BNB, ADA, DOGE, USDT holdings with sparklines and profit/loss |
 | `/transactions` | Paginated history with asset, type, status, and search filters |
@@ -42,6 +42,7 @@ A cryptocurrency portfolio dashboard built with **Angular 21** to teach real-wor
 - Dark theme by default with light mode toggle
 - Responsive layout (desktop, tablet, mobile)
 - Left sidebar navigation + top toolbar
+- Live market snapshot cards for common crypto prices on the dashboard
 - Loading spinners, skeleton loaders, empty states, and error states
 - Material Design components throughout
 - Snackbars and confirmation dialogs
@@ -178,7 +179,7 @@ public/
 **Data flow (typical feature page):**
 
 1. Component injects a service via `inject()`
-2. Service fetches data with `HttpClient` (mock JSON today)
+2. Service fetches data with `HttpClient` (live APIs + selected local mocks)
 3. Component bridges Observable → Signal with `toSignal()` or uses the `async` pipe
 4. Template renders via shared components and pipes
 
@@ -213,7 +214,12 @@ Each service and major component includes comments explaining **why** that patte
 
 ## Data Layer
 
-All data currently comes from static JSON in `public/assets/mock/`. Services read from a configurable base URL:
+The app now uses a hybrid data layer:
+
+- **Live APIs** for market-sensitive crypto data (prices, sparkline, global stats, trending, fear & greed)
+- **Local mock JSON** for user-scoped demo data (transactions, notifications, user profile)
+
+Services still read from a configurable base URL for local sources:
 
 ```typescript
 // src/environments/environment.ts
@@ -224,24 +230,29 @@ export const environment = {
 };
 ```
 
-| Service | Mock file | Responsibility |
-|---------|-----------|----------------|
-| `PortfolioService` | `portfolio.json` | Summary, allocation, performance, top movers |
-| `WalletService` | `wallets.json` | Wallet CRUD (local mutations on mock data) |
-| `AssetService` | `assets.json` | Holdings with sparkline data |
+| Service | Source | Responsibility |
+|---------|--------|----------------|
+| `PortfolioService` | CoinGecko + local holdings constants | Summary, allocation, performance, top movers |
+| `WalletService` | CoinGecko + local wallet templates | Wallet balances in USD using live prices |
+| `AssetService` | CoinGecko + local holdings constants | Holdings with live prices and sparklines |
+| `MarketService` | CoinGecko + Alternative.me | Global market stats, gainers/losers, trending, fear & greed |
 | `TransactionService` | `transactions.json` | Filtered, paginated transaction history |
-| `MarketService` | `markets.json` | Global market stats, gainers/losers |
 | `NotificationService` | `notifications.json`, `user.json` | Alerts and user profile |
 
 ---
 
 ## Connecting Real APIs
 
-The app is structured so you can plug in live data without a rewrite:
+Most market data is already live. The app is still structured so you can swap/extend providers without a rewrite:
 
 1. **Update the environment** — set `apiBaseUrl` to your API host
 2. **Adapt service methods** — map API responses to existing model interfaces in `core/models/`
 3. **Keep components unchanged** — they depend on services, not data source
+
+Current live providers:
+
+- CoinGecko (`https://api.coingecko.com/api/v3`)
+- Alternative.me Fear & Greed (`https://api.alternative.me/fng/`)
 
 Compatible future integrations:
 
@@ -257,6 +268,20 @@ apiBaseUrl: 'https://api.yourbackend.com/v1'
 ```
 
 Then update `API_PATHS` in `core/constants/api.constants.ts` to match your endpoints.
+
+### Verifying Live Data
+
+Use the dashboard to verify live fetches at runtime:
+
+1. Start the app with `npm start`
+2. Open `/dashboard`
+3. Confirm the badge below KPI cards shows `Live API: CoinGecko | Last pull: ...`
+4. Use the refresh icon in that badge and verify the timestamp updates
+5. Confirm the `Market Snapshot` section refreshes common coin prices like BTC, ETH, SOL, BNB, ADA, DOGE, XRP, and USDT
+
+For local development, live requests are routed through `proxy.conf.json` (`/api/coingecko`, `/api/fng`) to avoid browser CORS failures. If you edit proxy settings, restart `ng serve`.
+
+If the timestamp does not update or values stay static, check browser network requests to CoinGecko endpoints and API rate-limit responses.
 
 ---
 
