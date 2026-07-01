@@ -1,4 +1,3 @@
-/** HTTP resource paths — keeps URL strings out of service logic (Open/Closed principle). */
 export const API_PATHS = {
   portfolio: '/portfolio.json',
   wallets: '/wallets.json',

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, output, signal } from '@angular/core';
+import { Component, inject, output, signal } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -26,7 +26,7 @@ import { Router, RouterLink } from '@angular/router';
   templateUrl: './toolbar.component.html',
   styleUrl: './toolbar.component.scss',
 })
-export class ToolbarComponent implements OnInit {
+export class ToolbarComponent {
   private readonly themeService = inject(ThemeService);
   private readonly notificationService = inject(NotificationService);
   private readonly router = inject(Router);
@@ -38,7 +38,7 @@ export class ToolbarComponent implements OnInit {
   readonly user = this.notificationService.user;
   readonly searchQuery = signal('');
 
-  ngOnInit(): void {
+  constructor() {
     this.notificationService.loadNotifications().subscribe();
     this.notificationService.loadUser().subscribe();
   }

@@ -1,0 +1,2 @@
+/* Compatibility entry point — main styles live in styles.scss (see angular.json). */
+@import './styles.scss';
